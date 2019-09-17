@@ -1,16 +1,17 @@
 const PersonModel = require("../models/person");
 
-let Validator = require('fastest-validator');
+//let Validator = require('fastest-validator');
 
 let persons = {};
 let counter = 0;
 
-/* create instances of the validator */
-let personValidator = new Validator();
+/* create instance of the validator */
+//let personValidator = new Validator();
 
 /* customer validator shema */
+/*
 const boolsValidSchema = {
-	guid: {type: "string", min: 3}, // 4 c00kie
+	guid: "string", // 4 c00kie
 	first_name: {type: "boolean"},
 	last_name: {type: "boolean"},
 	email: {type: "boolean"},
@@ -27,15 +28,17 @@ const boolsValidSchema = {
 	nonPciSecDigitz: {type: "boolean"}
 	// end_pci
 };
+*/
 
 /* person service class */
 class PersonService
 {
 	static create(data)
 	{
-		var vres = personValidator.validate(data, boolsValidSchema);
+		//var vres = personValidator.validate(data, boolsValidSchema);
 
 		/* validation failed */
+		/*
 		if(!(vres === true))
 		{
 			let errors = {}, item;
@@ -52,6 +55,7 @@ class PersonService
 			    message: errors
 			};
 		}
+		*/
 
 		let personValues = new PersonModel(data.guid, data.first_nameV, data.last_nameV, data.emailV, data.zipcodeV, data.codeOTheDayV, // pii
 	      data.dxV, data.rxV, data.bloodGrpV, data.inTheKnowV, data.compliantPatientV, // phi
@@ -60,12 +64,11 @@ class PersonService
 	      data.dxL, data.rxL, data.bloodGrpL, data.inTheKnowL, data.compliantPatientL, // phi
 	      data.nonPciAcctL, data.nonPciSecDigitzL);
 
-		personValues.uid = 'pv' + counter;
-		personLabels.uid = 'pl' + counter++;
+		counter++;
 
-		persons[personValues.uid] = {};
-		persons[personValues.uid].values = personValues;
-		persons[personLabels.uid].labels = personLabels;
+		persons[counter] = {};
+		persons[counter].values = personValues;
+		persons[counter++].labels = personLabels;
 
 		return persons[personValues.uid];
 	}
