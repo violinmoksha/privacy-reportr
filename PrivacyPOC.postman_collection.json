@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "4e4d43e0-ec64-4100-94e1-1a804aca4d68",
+		"name": "PrivacyPOC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MakeGUIDForReporting",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/make_guid",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"make_guid"
+					]
+				},
+				"description": "Make a GUID from which to identify which person in server memory we will then retrieve the prefs for."
+			},
+			"response": []
+		},
+		{
+			"name": "MakeReportUsingGUID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/make_report?guid=QKmZhWETyRwjci8QN3rEokha&first_nameV=true&first_nameL=true&last_nameV=false&last_nameL=true&emailV=true&emailL=true&zipcodeV=false&zipcodeL=true&codeOTheDayV=false&codeOTheDayL=false&dxV=false&dxL=true&rxV=false&rxL=true&bloodGrpV=false&bloodGrpL=true&inTheKnowV=true&inTheKnowL=true&compliantPatientV=true&compliantPatientL=true&nonPciAcctV=true&nonPciAcctL=true&nonPciSecDigitzV=false&nonPciSecDigitzL=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"make_report"
+					],
+					"query": [
+						{
+							"key": "guid",
+							"value": "QKmZhWETyRwjci8QN3rEokha"
+						},
+						{
+							"key": "first_nameV",
+							"value": "true"
+						},
+						{
+							"key": "first_nameL",
+							"value": "true"
+						},
+						{
+							"key": "last_nameV",
+							"value": "false"
+						},
+						{
+							"key": "last_nameL",
+							"value": "true"
+						},
+						{
+							"key": "emailV",
+							"value": "true"
+						},
+						{
+							"key": "emailL",
+							"value": "true"
+						},
+						{
+							"key": "zipcodeV",
+							"value": "false"
+						},
+						{
+							"key": "zipcodeL",
+							"value": "true"
+						},
+						{
+							"key": "codeOTheDayV",
+							"value": "false"
+						},
+						{
+							"key": "codeOTheDayL",
+							"value": "false"
+						},
+						{
+							"key": "dxV",
+							"value": "false"
+						},
+						{
+							"key": "dxL",
+							"value": "true"
+						},
+						{
+							"key": "rxV",
+							"value": "false"
+						},
+						{
+							"key": "rxL",
+							"value": "true"
+						},
+						{
+							"key": "bloodGrpV",
+							"value": "false"
+						},
+						{
+							"key": "bloodGrpL",
+							"value": "true"
+						},
+						{
+							"key": "inTheKnowV",
+							"value": "true"
+						},
+						{
+							"key": "inTheKnowL",
+							"value": "true"
+						},
+						{
+							"key": "compliantPatientV",
+							"value": "true"
+						},
+						{
+							"key": "compliantPatientL",
+							"value": "true"
+						},
+						{
+							"key": "nonPciAcctV",
+							"value": "true"
+						},
+						{
+							"key": "nonPciAcctL",
+							"value": "true"
+						},
+						{
+							"key": "nonPciSecDigitzV",
+							"value": "false"
+						},
+						{
+							"key": "nonPciSecDigitzL",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Downloads the user report using GUID and boolean prefs as parameters"
+			},
+			"response": []
+		}
+	]
+}
