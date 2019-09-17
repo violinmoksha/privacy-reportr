@@ -21,8 +21,6 @@ class PersonModel // bools for display, whether instanced as values or labels bo
 
     this.pci.nonPciIdFromEcommAPI = nonPciId;
     this.pci.nonPciCCThreeDigits = nonPciSecDigitz;
-
-    // and perhaps psi, f.e. data we absolutely should not ever have ;-)
 	}
 }
 
