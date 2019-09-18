@@ -48,10 +48,16 @@ router.post('/', async (req, res, next) => {
 		// use these values here with js-xlsx to beautifully gen and DL the report
 		var filename = "privacy-report.xlsx";
 		var data = [['                  ', '                                    ', 'HRLabel  ', 'HRValue', 'HealthLabel       ', 'HealthValue', 'FinTechLabel            ', 'FinTechValue'],
+											 ["Globally Unique ID", "d66e57bc-6b90-4715", "FirstName ", "<Paul>",  "MedicalDiagnosis", "<ActivelyWorkingHuman>",      "PCI-Protected Account ID", "<123456>    "],
+											 ["                  ", "                  ", "MiddleName  ", "<Non-NULL>", "MedicalPrescription", "<CoQ10AndLecithin>", "PCI-Protected CSC", "<Non-NULL>"],
+											 ["                  ", "                  ", "LastName  ", "<Yeager>", "BloodGroup", "<O-Negative>", "PCI-Protected CSC", "<Non-NULL>"],
+											 ["                  ", "                  ", "<Non-NULL>", "pyeager@firstrepublic.com", "GovernmentFoodSubsistence", "<FALSE>", "<Non-NULL>", "<Non-NULL>"]
+		];
+		/*var data = [['                  ', '                                    ', 'HRLabel  ', 'HRValue', 'HealthLabel       ', 'HealthValue', 'FinTechLabel            ', 'FinTechValue'],
 		            ["Globally Unique ID", "d66e57bc-6b90-4715", "FirstName ", "<Paul>",  "ActiveWorkerStatus", "<TRUE>",      "PCI-Protected Account ID", "<123456>    "],
 		            ["                  ", "                  ", "LastName  ", "<Non-NULL>", "BloodGroup", "<O-Negative>", "PCI-Protected CSC", "<Non-NULL>"],
 		            ["                  ", "                  ", "<Non-NULL>", "pyeager@firstrepublic.com", "DX/Diagnosis", "<Non-NULL>", "<Non-NULL>", "<Non-NULL>"]
-		];
+		];*/
 		var ws_name = "PrivacyReport";
 
 		function datenum(v, date1904) {
@@ -92,8 +98,8 @@ router.post('/', async (req, res, next) => {
 		    {wch:20},
 		    {wch:20},
 		    {wch:30},
-		    {wch:20},
-		    {wch:20},
+		    {wch:30},
+		    {wch:30},
 		    {wch:20},
 		    {wch:15}
 		  ];
