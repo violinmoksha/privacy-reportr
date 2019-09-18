@@ -49,7 +49,7 @@ router.post('/', async (req, res, next) => {
 		var filename = "privacy-report.xlsx";
 		var data = [['                  ', '                                    ', 'HRLabel  ', 'HRValue', 'HealthLabel       ', 'HealthValue', 'FinTechLabel            ', 'FinTechValue'],
 											 ["Globally Unique ID", "d66e57bc-6b90-4715", "FirstName ", "<Paul>",  "MedicalDiagnosis", "<ActivelyWorkingHuman>",      "PCI-Protected Account ID", "<123456>    "],
-											 ["                  ", "                  ", "MiddleName  ", "<Non-NULL>", "MedicalPrescription", "<CoQ10AndLecithin>", "PCI-Protected CSC", "<Non-NULL>"],
+											 ["                  ", "                  ", "MiddleName  ", "<radactd vs non-null ...>", "MedicalPrescription", "<CoQ10AndLecithin>", "PCI-Protected CSC", "<Non-NULL>"],
 											 ["                  ", "                  ", "LastName  ", "<Yeager>", "BloodGroup", "<O-Negative>", "PCI-Protected CSC", "<Non-NULL>"],
 											 ["                  ", "                  ", "<Non-NULL>", "pyeager@firstrepublic.com", "GovernmentFoodSubsistence", "<FALSE>", "<Non-NULL>", "<Non-NULL>"]
 		];
@@ -127,7 +127,7 @@ router.post('/', async (req, res, next) => {
 		var file = fs.readFileSync(path.resolve(__dirname+'/../public/'+filename), 'binary');
 
 		res.setHeader('Content-Length', file.length);
-		res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+		res.setHeader('Content-disposition', 'inline; filename="' + filename + '"');
   	res.setHeader('Content-type', 'application/xlsx');
 
 		res.write(file, 'binary');
