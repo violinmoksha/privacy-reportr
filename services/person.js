@@ -8,11 +8,12 @@ let counter = 0;
 /* create instance of the validator */
 //let personValidator = new Validator();
 
-/* customer validator shema */
+/* WIP provided here as straw-house backend validatio as it need some tweeks */
 /*
 const boolsValidSchema = {
 	guid: "string", // 4 c00kie
 	first_name: {type: "boolean"},
+	middle_name: {type: "boolean"},
 	last_name: {type: "boolean"},
 	email: {type: "boolean"},
 	zipcode: {type: "boolean"},
@@ -57,10 +58,10 @@ class PersonService
 		}
 		*/
 
-		let personValues = new PersonModel(data.guid, data.first_nameV, data.last_nameV, data.emailV, data.zipcodeV, data.codeOTheDayV, // pii
+		let personValues = new PersonModel(data.guid, data.first_nameV, data.middle_nameV, data.last_nameV, data.emailV, data.zipcodeV, data.codeOTheDayV, data.socialMediaURLV, data.socialSecurityNumberV, data.driversLicenseV, data.passportNumberV, data.passportNationV, data.ageV, data.otherNamesUsedInThePastV, // pii
 	      data.dxV, data.rxV, data.bloodGrpV, data.inTheKnowV, data.compliantPatientV, // phi
 	      data.nonPciAcctV, data.nonPciSecDigitzV);
-		let personLabels = new PersonModel(data.guid, data.first_nameL, data.last_nameL, data.emailL, data.zipcodeL, data.codeOTheDayL, // pii
+		let personLabels = new PersonModel(data.guid, data.first_nameL, data.middle_nameL, data.last_nameL, data.emailL, data.zipcodeL, data.codeOTheDayL, data.socialMediaURLL, data.socialSecurityNumberL, data.driversLicenseL, data.passportNumberL, data.passportNationL, data.ageL, data.otherNamesUsedInThePastL, // pii
 	      data.dxL, data.rxL, data.bloodGrpL, data.inTheKnowL, data.compliantPatientL, // phi
 	      data.nonPciAcctL, data.nonPciSecDigitzL);
 

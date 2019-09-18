@@ -3,6 +3,7 @@ var router = express.Router();
 var PersonService = require('../services/person');
 var XLSX = require('js-xlsx');
 var fs = require('fs');
+var path = require('path');
 
 /* GET Person prefs. */
 router.get('/', async function(req, res, next)
@@ -115,13 +116,16 @@ router.post('/', async (req, res, next) => {
 		wb.Sheets[ws_name] = sheet_from_array_of_arrays(data);
 
 		/* write workbook */
-		XLSX.writeFile(wb, filename);
+		XLSX.writeFile(wb, __dirname+'/../public/'+filename);
 
-		var file = fs.readFileSync(__dirname + '/../' + filename, 'binary');
+		var file = fs.readFileSync(path.resolve(__dirname+'/../public/'+filename), 'binary');
 
-  	res.setHeader('Content-Length', file.length);
-  	res.write(file, 'binary');
-  	res.end();
+		res.setHeader('Content-Length', file.length);
+		res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+  	res.setHeader('Content-type', 'application/xlsx');
+
+		res.write(file, 'binary');
+		res.end();
 	}
 	catch(err)
 	{
