@@ -93,17 +93,10 @@ router.post('/', async (req, res, next) => {
 			if(range.s.c < 10000000) ws['!ref'] = XLSX.utils.encode_range(range);
 
 		  // set default column width
-		  var wscols = [
-		    {wch:20},
-		    {wch:20},
-		    {wch:20},
-		    {wch:30},
-		    {wch:30},
-		    {wch:30},
-		    {wch:20},
-		    {wch:15}
-		  ];
-
+		  var wscols = [];
+		  data[0].forEach(() => {
+				wscols.push({wch:30})
+			});
 		  ws['!cols'] = wscols;
 
 		  return ws;
