@@ -47,17 +47,30 @@ router.post('/', async (req, res, next) => {
 
 		// use these values here with js-xlsx to beautifully gen and DL the report
 		var filename = "privacy-report.xlsx";
-		var data = [['                  ', '                                    ', 'HRLabel  ', 'HRValue', 'HealthLabel       ', 'HealthValue', 'FinTechLabel            ', 'FinTechValue'],
-											 ["Globally Unique ID", "d66e57bc-6b90-4715", "FirstName ", "<Paul>",  "MedicalDiagnosis", "<ActivelyWorkingHuman>",      "PCI-Protected Account ID", "<123456>    "],
-											 ["                  ", "                  ", "MiddleName  ", "<radactd vs non-null ...>", "MedicalPrescription", "<CoQ10AndLecithin>", "PCI-Protected CSC", "<Non-NULL>"],
-											 ["                  ", "                  ", "LastName  ", "<Yeager>", "BloodGroup", "<O-Negative>", "PCI-Protected CSC", "<Non-NULL>"],
-											 ["                  ", "                  ", "<Non-NULL>", "pyeager@firstrepublic.com", "GovernmentFoodSubsistence", "<FALSE>", "<Non-NULL>", "<Non-NULL>"]
+		var data = [['                  ', '                  ', 'Categories', 'Label  ', 'Value', 'Show Label?', 'Show Value?'],
+											 ["Globally Unique ID", "d66e57bc-6b90-4715", "HR/PII", "First Name", "Paul",  "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Middle Name", "Edwin", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Last Name", "Yeager", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "EMail", "pyeager@firstrepublic.com", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Phone", "252-235-8335", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Zipcode", "94930", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Code Of the Day", "1234", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Social Media URL", "https://github.com/violinmoksha", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Social Security Number", "123-45-6789", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Driver License Number", "123456789", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Passport Number", "123456789", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Passport Nation", "USA", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Age", "38", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Other Names Used in the Past", "NA", "Y", "Y"],
+											 ["                  ", "                  ", "Health/PHI", "Medical Diagnosis", "Active Worker", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Medical Prescription", "CoQ10 and Lecithin", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Blood Group", "O-Positive", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "In the Know", "TRUE", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Compliant Patient", "TRUE", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Government Food Subsistence", "FALSE", "Y", "Y"],
+											 ["                  ", "                  ", "FinTech/PCI", "Non-PCI Protected Acct ID", "123456-abcdefg", "Y", "Y"],
+											 ["                  ", "                  ", "      ", "Non-PCI Protected CSC", "123", "Y", "Y"]
 		];
-		/*var data = [['                  ', '                                    ', 'HRLabel  ', 'HRValue', 'HealthLabel       ', 'HealthValue', 'FinTechLabel            ', 'FinTechValue'],
-		            ["Globally Unique ID", "d66e57bc-6b90-4715", "FirstName ", "<Paul>",  "ActiveWorkerStatus", "<TRUE>",      "PCI-Protected Account ID", "<123456>    "],
-		            ["                  ", "                  ", "LastName  ", "<Non-NULL>", "BloodGroup", "<O-Negative>", "PCI-Protected CSC", "<Non-NULL>"],
-		            ["                  ", "                  ", "<Non-NULL>", "pyeager@firstrepublic.com", "DX/Diagnosis", "<Non-NULL>", "<Non-NULL>", "<Non-NULL>"]
-		];*/
 		var ws_name = "PrivacyReport";
 
 		function datenum(v, date1904) {
@@ -98,6 +111,10 @@ router.post('/', async (req, res, next) => {
 				wscols.push({wch:30})
 			});
 		  ws['!cols'] = wscols;
+
+			ws['C2'].s = {fill:{fgColor: {rgb:"FAED27"}}};
+			ws['C16'].s = ws['C2'].s;
+			ws['C22'].s = ws['C16'].s;
 
 		  return ws;
 		}

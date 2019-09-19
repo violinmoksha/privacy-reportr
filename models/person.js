@@ -1,10 +1,10 @@
 class PersonModel // bools for display, whether instanced as values or labels bools
 {
-	constructor(guid, first_nameV, middle_nameV, last_nameV, emailV, zipcodeV, codeOTheDayV, socialMediaURLV, socialSecurityNumberV, driversLicenseV, passportNumberV, passportNationV, ageV, otherNamesUsedInThePastV, // pii
+	constructor(guid, first_nameV, middle_nameV, last_nameV, emailV, phoneV, zipcodeV, codeOTheDayV, socialMediaURLV, socialSecurityNumberV, driversLicenseV, passportNumberV, passportNationV, ageV, otherNamesUsedInThePastV, // pii
       dxV, rxV, bloodGrpV, inTheKnowV, compliantPatientV, governmentFoodSubsistenceV, // phi
       nonPciAcctV, nonPciSecDigitzV, // pci
 
-			first_nameL, middle_nameL, last_nameL, emailL, zipcodeL, codeOTheDayL, socialMediaURLL, socialSecurityNumberL, driversLicenseL, passportNumberL, passportNationL, ageL, otherNamesUsedInThePastL, // pii
+			first_nameL, middle_nameL, last_nameL, emailL, phoneL, zipcodeL, codeOTheDayL, socialMediaURLL, socialSecurityNumberL, driversLicenseL, passportNumberL, passportNationL, ageL, otherNamesUsedInThePastL, // pii
 		  dxL, rxL, bloodGrpL, inTheKnowL, compliantPatientL, governmentFoodSubsistenceL, // phi
 		  nonPciAcctL, nonPciSecDigitzL // pci
     )
@@ -16,6 +16,7 @@ class PersonModel // bools for display, whether instanced as values or labels bo
 		this.pii.middle_nameV = middle_nameV;
 		this.pii.last_nameV = last_nameV;
 		this.pii.emailV = emailV;
+		this.pii.phoneV = phoneV;
 		this.pii.zipcodeV = zipcodeV;
     this.pii.codeOTheDayV = codeOTheDayV;
 		this.pii.socialMediaURLV = socialMediaURLV;
@@ -42,6 +43,7 @@ class PersonModel // bools for display, whether instanced as values or labels bo
 		this.pii.middle_nameL = middle_nameL;
 		this.pii.last_nameL = last_nameL;
 		this.pii.emailL = emailL;
+		this.pii.phoneL = phoneL;
 		this.pii.zipcodeL = zipcodeL;
     this.pii.codeOTheDayL = codeOTheDayL;
 		this.pii.socialMediaURLL = socialMediaURLL;
