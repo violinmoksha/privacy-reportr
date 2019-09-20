@@ -287,9 +287,15 @@ router.post('/', async (req, res, next) => {
 		wb.Sheets[ws_name] = sheet_from_array_of_arrays(data);
 
 		/* write workbook */
-		XLSX.writeFile(wb, __dirname+'/../public/'+filename);
+		let slashChar;
+		if (process.env.WINDOWS) {
+			slashChar = '\\';
+		} else {
+			slashChar = '/';
+		}
+		XLSX.writeFile(wb, __dirname+slashChar+'..'+slashChar+'public'+slashChar+filename);
 
-		var file = fs.readFileSync(path.resolve(__dirname+'/../public/'+filename), 'binary');
+		var file = fs.readFileSync(path.resolve(__dirname+slashChar+'..'+slashChar+'public'+slashChar+filename), 'binary');
 
 		res.setHeader('Content-Length', file.length);
 		res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
