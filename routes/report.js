@@ -69,8 +69,8 @@ router.post('/', async (req, res, next) => {
 											 //["      ", "In the Know", "TRUE"],
 											 //["      ", "Compliant Patient", "TRUE"],
 											 //["      ", "Government Food Subsistence", "FALSE"],
-				["FinTech/PCI", "Non-PCI Protected Acct ID", "123456-abcdefg"],
-				["      ", "Non-PCI Protected CSC", "123"]
+				["FinTech/PCI", "Non-PCI Protected Account", "123456-abcdefg"],
+				["      ", "Non-PCI Protected Security Code", "123"]
 		];
 
 		// scrub it from the query params for all xls generation potentials
@@ -195,7 +195,7 @@ router.post('/', async (req, res, next) => {
 		}
 		if (req.query.nonPciAcctL == 'false') {
 			for(var k = 0; k < data.length; k++){
-    		if(data[k][1] == "Non-PCI Protected Acct ID" && data[k][2] == "123456-abcdefg"){
+    		if(data[k][1] == "Non-PCI Protected Account" && data[k][2] == "123456-abcdefg"){
 					data.splice(k, 1);
 					var nonPciAcctLWasFalse = true;
 				}
@@ -203,14 +203,14 @@ router.post('/', async (req, res, next) => {
 		}
 		if (req.query.nonPciAcctV == 'false' && !nonPciAcctLWasFalse) {
 			for(var k = 0; k < data.length; k++){
-    		if(data[k][1] == "Non-PCI Protected Acct ID" && data[k][2] == "123456-abcdefg"){
+    		if(data[k][1] == "Non-PCI Protected Account" && data[k][2] == "123456-abcdefg"){
 					data[k][2] = '<redacted>';
 				}
     	}
 		}
 		if (req.query.nonPciSecDigitzL == 'false') {
 			for(var k = 0; k < data.length; k++){
-    		if(data[k][1] == "Non-PCI Protected CSC" && data[k][2] == "123"){
+    		if(data[k][1] == "Non-PCI Protected Security Code" && data[k][2] == "123"){
 					data.splice(k, 1);
 					var nonPciSecDigitzLWasFalse = true;
 				}
@@ -218,7 +218,7 @@ router.post('/', async (req, res, next) => {
 		}
 		if (req.query.nonPciSecDigitzV == 'false' && !nonPciSecDigitzLWasFalse) {
 			for(var k = 0; k < data.length; k++){
-    		if(data[k][1] == "Non-PCI Protected CSC" && data[k][2] == "123"){
+    		if(data[k][1] == "Non-PCI Protected Security Code" && data[k][2] == "123"){
 					data[k][2] = '<redacted>';
 				}
     	}
@@ -292,7 +292,7 @@ router.post('/', async (req, res, next) => {
 		var file = fs.readFileSync(path.resolve(__dirname+'/../public/'+filename), 'binary');
 
 		res.setHeader('Content-Length', file.length);
-		res.setHeader('Content-disposition', 'inline; filename="' + filename + '"');
+		res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
   	res.setHeader('Content-type', 'application/xlsx');
 
 		res.write(file, 'binary');
