@@ -47,207 +47,184 @@ router.post('/', async (req, res, next) => {
 
 		// use these values here with js-xlsx to beautifully gen and DL the report
 		var filename = "privacy-report.xlsx";
-		var data = [['                  ', '                  ', 'Categories', 'Label  ', 'Value', 'Show Label?', 'Show Value?'],
-											 ["Globally Unique ID", "d66e57bc-6b90-4715", "HR/PII", "First Name", "Paul",  "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Middle Name", "Edwin", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Last Name", "Yeager", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "EMail", "pyeager@firstrepublic.com", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Phone", "252-235-8335", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Zipcode", "94930", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Code Of the Day", "1234", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Social Media URL", "https://github.com/violinmoksha", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Social Security Number", "123-45-6789", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Driver License Number", "123456789", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Passport Number", "123456789", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Passport Nation", "USA", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Age", "38", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Other Names Used in the Past", "NA", "Y", "Y"],
-											 ["                  ", "                  ", "Health/PHI", "Medical Diagnosis", "Active Worker", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Medical Prescription", "CoQ10 and Lecithin", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Blood Group", "O-Positive", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "In the Know", "TRUE", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Compliant Patient", "TRUE", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Government Food Subsistence", "FALSE", "Y", "Y"],
-											 ["                  ", "                  ", "FinTech/PCI", "Non-PCI Protected Acct ID", "123456-abcdefg", "Y", "Y"],
-											 ["                  ", "                  ", "      ", "Non-PCI Protected CSC", "123", "Y", "Y"]
+		var data = [
+			['Categories', 'Label  ', 'Value'],
+			["HR/PII", "First Name", "Paul"],
+			["      ", "Middle Name", "Edwin"],
+			["      ", "Last Name", "Yeager"],
+			["      ", "EMail", "pyeager@firstrepublic.com"],
+											 //["      ", "Phone", "252-235-8335"],
+											 //["      ", "Zipcode", "94930"],
+											 //["      ", "Code Of the Day", "1234"],
+											 //["      ", "Social Media URL", "https://github.com/violinmoksha"],
+											 //["      ", "Social Security Number", "123-45-6789"],
+											 //["      ", "Driver License Number", "123456789"],
+											 //["      ", "Passport Number", "123456789"],
+											 //["      ", "Passport Nation", "USA"],
+											 //["      ", "Age", "38"],
+											 //["      ", "Other Names Used in the Past", "NA"],
+				["Health/PHI", "Medical Diagnosis", "Active Worker"],
+				["      ", "Medical Prescription", "CoQ10 and Lecithin"],
+				["      ", "Blood Group", "O-Positive"],
+											 //["      ", "In the Know", "TRUE"],
+											 //["      ", "Compliant Patient", "TRUE"],
+											 //["      ", "Government Food Subsistence", "FALSE"],
+				["FinTech/PCI", "Non-PCI Protected Acct ID", "123456-abcdefg"],
+				["      ", "Non-PCI Protected CSC", "123"]
 		];
 
-		// TODO scrub it from the query params
+		// scrub it from the query params for all xls generation potentials
+		var hrItemCt = 5, healthItemCt = 4;
 		if (req.query.first_nameL == 'false') {
-			data[1][3] = '<Non-NULL>';
-			data[1][5] = 'N';
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "First Name" && data[k][2] == "Paul"){
+					data.splice(k, 1);
+					var first_nameLWasFalse = true;
+					hrItemCt--;
+				}
+    	}
 		}
-		if (req.query.first_nameV == 'false') {
-			data[1][4] = '<Non-NULL>';
-			data[1][6] = 'N';
+		if (req.query.first_nameV == 'false' && !first_nameLWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "First Name" && data[k][2] == "Paul"){
+					data[k][2] = '<redacted>';
+				}
+    	}
 		}
 		if (req.query.middle_nameL == 'false') {
-			data[2][3] = '<Non-NULL>';
-			data[2][5] = 'N';
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Middle Name" && data[k][2] == "Edwin"){
+					data.splice(k, 1);
+					var middle_nameLWasFalse = true;
+					hrItemCt--;
+				}
+    	}
 		}
-		if (req.query.middle_nameV == 'false') {
-			data[2][4] = '<Non-NULL>';
-			data[2][6] = 'N';
+		if (req.query.middle_nameV == 'false' && !middle_nameLWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Middle Name" && data[k][2] == "Edwin"){
+					data[k][2] = '<redacted>';
+				}
+    	}
 		}
 		if (req.query.last_nameL == 'false') {
-			data[3][3] = '<Non-NULL>';
-			data[3][5] = 'N';
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Last Name" && data[k][2] == "Yeager"){
+					data.splice(k, 1);
+					var last_nameLWasFalse = true;
+					hrItemCt--;
+				}
+    	}
 		}
-		if (req.query.last_nameV == 'false') {
-			data[3][4] = '<Non-NULL>';
-			data[3][6] = 'N';
+		if (req.query.last_nameV == 'false' && !last_nameLWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Last Name" && data[k][2] == "Yeager"){
+					data[k][2] = '<redacted>';
+				}
+    	}
 		}
 		if (req.query.emailL == 'false') {
-			data[4][3] = '<Non-NULL>';
-			data[4][5] = 'N';
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "EMail" && data[k][2] == "pyeager@firstrepublic.com"){
+					data.splice(k, 1);
+					var emailLWasFalse = true;
+					hrItemCt--;
+				}
+    	}
 		}
-		if (req.query.emailV == 'false') {
-			data[4][4] = '<Non-NULL>';
-			data[4][6] = 'N';
+		if (req.query.emailV == 'false' && !emailLWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "EMail" && data[k][2] == "pyeager@firstrepublic.com"){
+					data[k][2] = '<redacted>';
+				}
+    	}
 		}
-		if (req.query.phoneL == 'false') {
-			data[5][3] = '<Non-NULL>';
-			data[5][5] = 'N';
-		}
-		if (req.query.phoneV == 'false') {
-			data[5][4] = '<Non-NULL>';
-			data[5][6] = 'N';
-		}
-		if (req.query.zipcodeL == 'false') {
-			data[6][3] = '<Non-NULL>';
-			data[6][5] = 'N';
-		}
-		if (req.query.zipcodeV == 'false') {
-			data[6][4] = '<Non-NULL>';
-			data[6][6] = 'N';
-		}
-		if (req.query.codeOTheDayL == 'false') {
-			data[7][3] = '<Non-NULL>';
-			data[7][5] = 'N';
-		}
-		if (req.query.codeOTheDayV == 'false') {
-			data[7][4] = '<Non-NULL>';
-			data[7][6] = 'N';
-		}
-		if (req.query.socialMediaURLL == 'false') {
-			data[8][3] = '<Non-NULL>';
-			data[8][5] = 'N';
-		}
-		if (req.query.socialMediaURLV == 'false') {
-			data[8][4] = '<Non-NULL>';
-			data[8][6] = 'N';
-		}
-		if (req.query.socialSecurityNumberL == 'false') {
-			data[9][3] = '<Non-NULL>';
-			data[9][5] = 'N';
-		}
-		if (req.query.socialSecurityNumberV == 'false') {
-			data[9][4] = '<Non-NULL>';
-			data[9][6] = 'N';
-		}
-		if (req.query.driversLicenseL == 'false') {
-			data[10][3] = '<Non-NULL>';
-			data[10][5] = 'N';
-		}
-		if (req.query.driversLicenseV == 'false') {
-			data[10][4] = '<Non-NULL>';
-			data[10][6] = 'N';
-		}
-		if (req.query.passportNumberL == 'false') {
-			data[11][3] = '<Non-NULL>';
-			data[11][5] = 'N';
-		}
-		if (req.query.passportNumberV == 'false') {
-			data[11][4] = '<Non-NULL>';
-			data[11][6] = 'N';
-		}
-		if (req.query.passportNationL == 'false') {
-			data[12][3] = '<Non-NULL>';
-			data[12][5] = 'N';
-		}
-		if (req.query.passportNationV == 'false') {
-			data[12][4] = '<Non-NULL>';
-			data[12][6] = 'N';
-		}
-		if (req.query.ageL == 'false') {
-			data[13][3] = '<Non-NULL>';
-			data[13][5] = 'N';
-		}
-		if (req.query.ageV == 'false') {
-			data[13][4] = '<Non-NULL>';
-			data[13][6] = 'N';
-		}
-		if (req.query.otherNamesUsedInThePastL == 'false') {
-			data[14][3] = '<Non-NULL>';
-			data[14][5] = 'N';
-		}
-		if (req.query.otherNamesUsedInThePastV == 'false') {
-			data[14][4] = '<Non-NULL>';
-			data[14][6] = 'N';
+		if (first_nameLWasFalse && middle_nameLWasFalse && last_nameLWasFalse && emailLWasFalse) {} else {
+			data[1][0] = "HR/PII";
 		}
 		if (req.query.dxL == 'false') {
-			data[15][3] = '<Non-NULL>';
-			data[15][5] = 'N';
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Medical Diagnosis" && data[k][2] == "Active Worker"){
+					data.splice(k, 1);
+					var dxLWasFalse = true;
+					healthItemCt--;
+				}
+    	}
 		}
-		if (req.query.dxV == 'false') {
-			data[15][4] = '<Non-NULL>';
-			data[15][6] = 'N';
+		if (req.query.dxV == 'false' && !dxLWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Medical Diagnosis" && data[k][2] == "Active Worker"){
+					data[k][2] = '<redacted>';
+				}
+    	}
 		}
 		if (req.query.rxL == 'false') {
-			data[16][3] = '<Non-NULL>';
-			data[16][5] = 'N';
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Medical Prescription" && data[k][2] == "CoQ10 and Lecithin"){
+					data.splice(k, 1);
+					var rxLWasFalse = true;
+					healthItemCt--;
+				}
+    	}
 		}
-		if (req.query.rxV == 'false') {
-			data[16][4] = '<Non-NULL>';
-			data[16][6] = 'N';
+		if (req.query.rxV == 'false' && !rxLWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Medical Prescription" && data[k][2] == "CoQ10 and Lecithin"){
+					data[k][2] = '<redacted>';
+				}
+    	}
 		}
 		if (req.query.bloodGrpL == 'false') {
-			data[17][3] = '<Non-NULL>';
-			data[17][5] = 'N';
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Blood Group" && data[k][2] == "O-Positive"){
+					data.splice(k, 1);
+					var bloodGrpLWasFalse = true;
+					healthItemCt--;
+				}
+    	}
 		}
-		if (req.query.bloodGrpV == 'false') {
-			data[17][4] = '<Non-NULL>';
-			data[17][6] = 'N';
+		if (req.query.bloodGrpV == 'false' && !bloodGrpLWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Blood Group" && data[k][2] == "O-Positive"){
+					data[k][2] = '<redacted>';
+				}
+    	}
 		}
-		if (req.query.inTheKnowL == 'false') {
-			data[18][3] = '<Non-NULL>';
-			data[18][5] = 'N';
-		}
-		if (req.query.inTheKnowV == 'false') {
-			data[18][4] = '<Non-NULL>';
-			data[18][6] = 'N';
-		}
-		if (req.query.compliantPatientL == 'false') {
-			data[19][3] = '<Non-NULL>';
-			data[19][5] = 'N';
-		}
-		if (req.query.compliantPatientV == 'false') {
-			data[19][4] = '<Non-NULL>';
-			data[19][6] = 'N';
-		}
-		if (req.query.governmentFoodSubsistenceL == 'false') {
-			data[20][3] = '<Non-NULL>';
-			data[20][5] = 'N';
-		}
-		if (req.query.governmentFoodSubsistenceV == 'false') {
-			data[20][4] = '<Non-NULL>';
-			data[20][6] = 'N';
+		if (dxLWasFalse && rxLWasFalse && bloodGrpLWasFalse) {} else {
+			data[hrItemCt][0] = "Health/PHI";
 		}
 		if (req.query.nonPciAcctL == 'false') {
-			data[21][3] = '<Non-NULL>';
-			data[21][5] = 'N';
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Non-PCI Protected Acct ID" && data[k][2] == "123456-abcdefg"){
+					data.splice(k, 1);
+					var nonPciAcctLWasFalse = true;
+				}
+    	}
 		}
-		if (req.query.nonPciAcctV == 'false') {
-			data[21][4] = '<Non-NULL>';
-			data[21][6] = 'N';
+		if (req.query.nonPciAcctV == 'false' && !nonPciAcctLWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Non-PCI Protected Acct ID" && data[k][2] == "123456-abcdefg"){
+					data[k][2] = '<redacted>';
+				}
+    	}
 		}
 		if (req.query.nonPciSecDigitzL == 'false') {
-			data[22][3] = '<Non-NULL>';
-			data[22][5] = 'N';
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Non-PCI Protected CSC" && data[k][2] == "123"){
+					data.splice(k, 1);
+					var nonPciSecDigitzLWasFalse = true;
+				}
+    	}
 		}
-		if (req.query.nonPciSecDigitzV == 'false') {
-			data[22][4] = '<Non-NULL>';
-			data[22][6] = 'N';
+		if (req.query.nonPciSecDigitzV == 'false' && !nonPciSecDigitzLWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Non-PCI Protected CSC" && data[k][2] == "123"){
+					data[k][2] = '<redacted>';
+				}
+    	}
+		}
+		if (nonPciAcctLWasFalse && nonPciSecDigitzLWasFalse) {} else {
+			data[hrItemCt+healthItemCt - 1][0] = "FinTech/PCI";
 		}
 		var ws_name = "PrivacyReport";
 
@@ -290,9 +267,9 @@ router.post('/', async (req, res, next) => {
 			});
 		  ws['!cols'] = wscols;
 
-			ws['C2'].s = {fill:{fgColor: {rgb:"FAED27"}}};
-			ws['C16'].s = ws['C2'].s;
-			ws['C22'].s = ws['C16'].s;
+			ws['A1'].s = {fill:{fgColor: {rgb:"FAED27"}}};
+			//ws['A16'].s = ws['A2'].s;
+			//ws['A22'].s = ws['A16'].s;
 
 		  return ws;
 		}
