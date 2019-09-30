@@ -54,7 +54,7 @@ router.post('/', async (req, res, next) => {
 			["      ", "Last Name", "Yeager"],
 			["      ", "EMail", "pyeager@firstrepublic.com"],
 			["      ", "Mailing Address 1", "One Front Street, SF, CA"],
-			["      ", "Mailing Address 2", "38 Ellis Road"],
+			["      ", "Mailing Address 2", "38 Ellis Street"],
 											 //["      ", "Phone", "252-235-8335"],
 											 //["      ", "Zipcode", "94930"],
 											 //["      ", "Code Of the Day", "1234"],
@@ -76,7 +76,7 @@ router.post('/', async (req, res, next) => {
 		];
 
 		// scrub it from the query params for all xls generation potentials
-		var hrItemCt = 5, healthItemCt = 4;
+		var hrItemCt = 7, healthItemCt = 3;
 		if (req.query.first_nameL == 'false') {
 			for(var k = 0; k < data.length; k++){
     		if(data[k][1] == "First Name" && data[k][2] == "Paul"){
@@ -141,14 +141,38 @@ router.post('/', async (req, res, next) => {
 				}
     	}
 		}
-		// TODO for mailing addresses in report xlsx?
-		/*if (req.query.mailing1V == 'false' && !emailLWasFalse) {
+		if (req.query.mailing1L == 'false') {
 			for(var k = 0; k < data.length; k++){
-    		if(data[k][1] == "EMail" && data[k][2] == "pyeager@firstrepublic.com"){
+    		if(data[k][1] == "Mailing Address 1" && data[k][2] == "One Front Street, SF, CA"){
+					data.splice(k, 1);
+					var mailing1LWasFalse = true;
+					hrItemCt--;
+				}
+    	}
+		}
+		if (req.query.mailing1V == 'false' && !mailing1LWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Mailing Address 1" && data[k][2] == "One Front Street, SF, CA"){
 					data[k][2] = '<redacted>';
 				}
     	}
-		}*/
+		}
+		if (req.query.mailing2L == 'false') {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Mailing Address 2" && data[k][2] == "38 Ellis Street"){
+					data.splice(k, 1);
+					var mailing2LWasFalse = true;
+					hrItemCt--;
+				}
+    	}
+		}
+		if (req.query.mailing2V == 'false' && !mailing2LWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "Mailing Address 2" && data[k][2] == "38 Ellis Street"){
+					data[k][2] = '<redacted>';
+				}
+    	}
+		}
 		if (first_nameLWasFalse && middle_nameLWasFalse && last_nameLWasFalse && emailLWasFalse) {} else {
 			data[1][0] = "HR/PII";
 		}
