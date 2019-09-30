@@ -53,6 +53,8 @@ router.post('/', async (req, res, next) => {
 			["      ", "Middle Name", "Edwin"],
 			["      ", "Last Name", "Yeager"],
 			["      ", "EMail", "pyeager@firstrepublic.com"],
+			["      ", "Mailing Address 1", "One Front Street, SF, CA"],
+			["      ", "Mailing Address 2", "38 Ellis Road"],
 											 //["      ", "Phone", "252-235-8335"],
 											 //["      ", "Zipcode", "94930"],
 											 //["      ", "Code Of the Day", "1234"],
@@ -139,6 +141,14 @@ router.post('/', async (req, res, next) => {
 				}
     	}
 		}
+		// TODO for mailing addresses in report xlsx?
+		/*if (req.query.mailing1V == 'false' && !emailLWasFalse) {
+			for(var k = 0; k < data.length; k++){
+    		if(data[k][1] == "EMail" && data[k][2] == "pyeager@firstrepublic.com"){
+					data[k][2] = '<redacted>';
+				}
+    	}
+		}*/
 		if (first_nameLWasFalse && middle_nameLWasFalse && last_nameLWasFalse && emailLWasFalse) {} else {
 			data[1][0] = "HR/PII";
 		}

@@ -58,10 +58,10 @@ class PersonService
 		}
 		*/
 
-		let personValues = new PersonModel(data.guid, data.first_nameV, data.middle_nameV, data.last_nameV, data.emailV, data.phoneV, data.zipcodeV, data.codeOTheDayV, data.socialMediaURLV, data.socialSecurityNumberV, data.driversLicenseV, data.passportNumberV, data.passportNationV, data.ageV, data.otherNamesUsedInThePastV, // pii
+		let personValues = new PersonModel(data.guid, data.first_nameV, data.middle_nameV, data.last_nameV, data.emailV, data.mailing1V, data.mailing2V, data.phoneV, data.zipcodeV, data.codeOTheDayV, data.socialMediaURLV, data.socialSecurityNumberV, data.driversLicenseV, data.passportNumberV, data.passportNationV, data.ageV, data.otherNamesUsedInThePastV, // pii
 	      data.dxV, data.rxV, data.bloodGrpV, data.inTheKnowV, data.compliantPatientV, // phi
 	      data.nonPciAcctV, data.nonPciSecDigitzV);
-		let personLabels = new PersonModel(data.guid, data.first_nameL, data.middle_nameL, data.last_nameL, data.emailL, data.phoneL, data.zipcodeL, data.codeOTheDayL, data.socialMediaURLL, data.socialSecurityNumberL, data.driversLicenseL, data.passportNumberL, data.passportNationL, data.ageL, data.otherNamesUsedInThePastL, // pii
+		let personLabels = new PersonModel(data.guid, data.first_nameL, data.middle_nameL, data.last_nameL, data.emailL, data.mailing1L, data.mailing2L, data.phoneL, data.zipcodeL, data.codeOTheDayL, data.socialMediaURLL, data.socialSecurityNumberL, data.driversLicenseL, data.passportNumberL, data.passportNationL, data.ageL, data.otherNamesUsedInThePastL, // pii
 	      data.dxL, data.rxL, data.bloodGrpL, data.inTheKnowL, data.compliantPatientL, // phi
 	      data.nonPciAcctL, data.nonPciSecDigitzL);
 
