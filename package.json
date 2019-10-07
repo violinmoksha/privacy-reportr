@@ -13,5 +13,10 @@
     "fastest-validator": "^0.6.17",
     "js-xlsx": "^0.8.22",
     "uid-safe": "^2.1.5"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.1",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
   }
 }
